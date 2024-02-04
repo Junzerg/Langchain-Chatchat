@@ -152,10 +152,10 @@ MODEL_PATH = {
         "m3e-large": "moka-ai/m3e-large",
         "bge-small-zh": "BAAI/bge-small-zh",
         "bge-base-zh": "BAAI/bge-base-zh",
-        "bge-large-zh": "/root/autodl-tmp/model/BAAI/bge-large-zh",
+        "bge-large-zh": "/root/model/bge-large-zh",
         "bge-large-zh-noinstruct": "BAAI/bge-large-zh-noinstruct",
         "bge-base-zh-v1.5": "BAAI/bge-base-zh-v1.5",
-        "bge-large-zh-v1.5": "/root/autodl-tmp/model/BAAI/bge-large-zh-v1.5",
+        "bge-large-zh-v1.5": "/root/model/bge-large-zh-v1.5",
         "piccolo-base-zh": "sensenova/piccolo-base-zh",
         "piccolo-large-zh": "sensenova/piccolo-large-zh",
         "nlp_gte_sentence-embedding_chinese-large": "damo/nlp_gte_sentence-embedding_chinese-large",
@@ -165,7 +165,7 @@ MODEL_PATH = {
     "llm_model": {
         "chatglm2-6b": "THUDM/chatglm2-6b",
         "chatglm2-6b-32k": "THUDM/chatglm2-6b-32k",
-        "chatglm3-6b": "/root/autodl-tmp/model/THUDM/chatglm3-6b",
+        "chatglm3-6b": "/root/model/chatglm3-6b",
         "chatglm3-6b-32k": "THUDM/chatglm3-6b-32k",
 
         "Orion-14B-Chat": "OrionStarAI/Orion-14B-Chat",
@@ -226,7 +226,7 @@ MODEL_PATH = {
     },
 
     "reranker": {
-        "bge-reranker-large": "/root/autodl-tmp/model/BAAI/bge-reranker-large",
+        "bge-reranker-large": "/root/model/bge-reranker-large",
         "bge-reranker-base": "/root/autodl-tmp/model/BAAI/bge-reranker-base",
     }
 }
