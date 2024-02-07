@@ -26,7 +26,7 @@ EMBEDDING_MODEL_OUTPUT_PATH = "output"
 # 在这里，我们使用目前主流的两个离线模型，其中，chatglm3-6b 为默认加载模型。
 # 如果你的显存不足，可使用 Qwen-1_8B-Chat, 该模型 FP16 仅需 3.8G显存。
 
-LLM_MODELS = ["chatglm3-6b", "zhipu-api", "openai-api"]
+LLM_MODELS = ["chatglm3-6b", "Llama-2-7b-chat-hf", "baichuan2-7b-chat", "baichuan2-13b-chat", "openai-api"]
 Agent_MODEL = None
 
 # LLM 模型运行设备。设为"auto"会自动检测(会有警告)，也可手动设定为 "cuda","mps","cpu","xpu" 其中之一。
@@ -66,7 +66,7 @@ ONLINE_LLM_MODEL = {
         "APPID": "",
         "APISecret": "",
         "api_key": "",
-        "version": "v3.5", # 你使用的讯飞星火大模型版本，可选包括 "v3.5","v3.0", "v2.0", "v1.5"
+        "version": "v3.5",  # 你使用的讯飞星火大模型版本，可选包括 "v3.5","v3.0", "v2.0", "v1.5"
         "provider": "XingHuoWorker",
     },
 
@@ -152,10 +152,10 @@ MODEL_PATH = {
         "m3e-large": "moka-ai/m3e-large",
         "bge-small-zh": "BAAI/bge-small-zh",
         "bge-base-zh": "BAAI/bge-base-zh",
-        "bge-large-zh": "/root/autodl-tmp/model/BAAI/bge-large-zh",
+        "bge-large-zh": "BAAI/bge-large-zh",
         "bge-large-zh-noinstruct": "BAAI/bge-large-zh-noinstruct",
         "bge-base-zh-v1.5": "BAAI/bge-base-zh-v1.5",
-        "bge-large-zh-v1.5": "/root/autodl-tmp/model/BAAI/bge-large-zh-v1.5",
+        "bge-large-zh-v1.5": "BAAI/bge-large-zh-v1.5",
         "piccolo-base-zh": "sensenova/piccolo-base-zh",
         "piccolo-large-zh": "sensenova/piccolo-large-zh",
         "nlp_gte_sentence-embedding_chinese-large": "damo/nlp_gte_sentence-embedding_chinese-large",
@@ -165,14 +165,14 @@ MODEL_PATH = {
     "llm_model": {
         "chatglm2-6b": "THUDM/chatglm2-6b",
         "chatglm2-6b-32k": "THUDM/chatglm2-6b-32k",
-        "chatglm3-6b": "/root/autodl-tmp/model/THUDM/chatglm3-6b",
-        "chatglm3-6b-32k": "THUDM/chatglm3-6b-32k",
+        "chatglm3-6b": "C:/Users/VIP/.models/THUDM/chatglm3-6b",
+        "chatglm3-6b-32k": "C:/Users/VIP/.models/THUDM/chatglm3-6b-32k",
 
         "Orion-14B-Chat": "OrionStarAI/Orion-14B-Chat",
         "Orion-14B-Chat-Plugin": "OrionStarAI/Orion-14B-Chat-Plugin",
         "Orion-14B-LongChat": "OrionStarAI/Orion-14B-LongChat",
 
-        "Llama-2-7b-chat-hf": "/root/autodl-tmp/model/meta-llama/Llama-2-7b-chat-hf",
+        "Llama-2-7b-chat-hf": "C:/Users/VIP/.models/NousResearch/Llama-2-7b-chat-hf",
         "Llama-2-13b-chat-hf": "meta-llama/Llama-2-13b-chat-hf",
         "Llama-2-70b-chat-hf": "meta-llama/Llama-2-70b-chat-hf",
 
@@ -183,8 +183,8 @@ MODEL_PATH = {
 
         "baichuan-7b-chat": "baichuan-inc/Baichuan-7B-Chat",
         "baichuan-13b-chat": "baichuan-inc/Baichuan-13B-Chat",
-        "baichuan2-7b-chat": "baichuan-inc/Baichuan2-7B-Chat",
-        "baichuan2-13b-chat": "baichuan-inc/Baichuan2-13B-Chat",
+        "baichuan2-7b-chat": "C:/Users/VIP/.models/baichuan-inc/Baichuan2-7B-Chat",
+        "baichuan2-13b-chat": "C:/Users/VIP/.models/baichuan-inc/Baichuan2-13B-Chat",
 
         "internlm-7b": "internlm/internlm-7b",
         "internlm-chat-7b": "internlm/internlm-chat-7b",
@@ -226,8 +226,8 @@ MODEL_PATH = {
     },
 
     "reranker": {
-        "bge-reranker-large": "/root/autodl-tmp/model/BAAI/bge-reranker-large",
-        "bge-reranker-base": "/root/autodl-tmp/model/BAAI/bge-reranker-base",
+        "bge-reranker-large": "BAAI/bge-reranker-large",
+        "bge-reranker-base": "BAAI/bge-reranker-base",
     }
 }
 
