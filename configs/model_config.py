@@ -3,13 +3,13 @@ import os
 # 可以指定一个绝对路径，统一存放所有的Embedding和LLM模型。
 # 每个模型可以是一个单独的目录，也可以是某个目录下的二级子目录。
 # 如果模型目录名称和 MODEL_PATH 中的 key 或 value 相同，程序会自动检测加载，无需修改 MODEL_PATH 中的路径。
-MODEL_ROOT_PATH = ""
+MODEL_ROOT_PATH = "~/.models/"
 
 # 选用的 Embedding 名称
 EMBEDDING_MODEL = "bge-large-zh-v1.5"
 
 # Embedding 模型运行设备。设为 "auto" 会自动检测(会有警告)，也可手动设定为 "cuda","mps","cpu","xpu" 其中之一。
-EMBEDDING_DEVICE = "cuda"
+EMBEDDING_DEVICE = "auto"
 
 # 选用的reranker模型
 RERANKER_MODEL = "bge-reranker-large"
@@ -26,7 +26,7 @@ EMBEDDING_MODEL_OUTPUT_PATH = "output"
 # 在这里，我们使用目前主流的两个离线模型，其中，chatglm3-6b 为默认加载模型。
 # 如果你的显存不足，可使用 Qwen-1_8B-Chat, 该模型 FP16 仅需 3.8G显存。
 
-LLM_MODELS = ["chatglm3-6b", "Llama-2-7b-chat-hf", "baichuan2-7b-chat", "baichuan2-13b-chat", "openai-api"]
+LLM_MODELS = ["openai-api"]
 Agent_MODEL = None
 
 # LLM 模型运行设备。设为"auto"会自动检测(会有警告)，也可手动设定为 "cuda","mps","cpu","xpu" 其中之一。
@@ -42,7 +42,7 @@ ONLINE_LLM_MODEL = {
     "openai-api": {
         "model_name": "gpt-4",
         "api_base_url": "https://api.openai.com/v1",
-        "api_key": "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",
+        "api_key": "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",
         "openai_proxy": "http://4.227.245.157:8080/",
     },
 
@@ -165,14 +165,14 @@ MODEL_PATH = {
     "llm_model": {
         "chatglm2-6b": "THUDM/chatglm2-6b",
         "chatglm2-6b-32k": "THUDM/chatglm2-6b-32k",
-        "chatglm3-6b": "C:/Users/VIP/.models/THUDM/chatglm3-6b",
-        "chatglm3-6b-32k": "C:/Users/VIP/.models/THUDM/chatglm3-6b-32k",
+        "chatglm3-6b": "THUDM/chatglm3-6b",
+        "chatglm3-6b-32k": "THUDM/chatglm3-6b-32k",
 
         "Orion-14B-Chat": "OrionStarAI/Orion-14B-Chat",
         "Orion-14B-Chat-Plugin": "OrionStarAI/Orion-14B-Chat-Plugin",
         "Orion-14B-LongChat": "OrionStarAI/Orion-14B-LongChat",
 
-        "Llama-2-7b-chat-hf": "C:/Users/VIP/.models/NousResearch/Llama-2-7b-chat-hf",
+        "Llama-2-7b-chat-hf": "meta-llama/Llama-2-7b-chat-hf",
         "Llama-2-13b-chat-hf": "meta-llama/Llama-2-13b-chat-hf",
         "Llama-2-70b-chat-hf": "meta-llama/Llama-2-70b-chat-hf",
 
@@ -183,8 +183,8 @@ MODEL_PATH = {
 
         "baichuan-7b-chat": "baichuan-inc/Baichuan-7B-Chat",
         "baichuan-13b-chat": "baichuan-inc/Baichuan-13B-Chat",
-        "baichuan2-7b-chat": "C:/Users/VIP/.models/baichuan-inc/Baichuan2-7B-Chat",
-        "baichuan2-13b-chat": "C:/Users/VIP/.models/baichuan-inc/Baichuan2-13B-Chat",
+        "baichuan2-7b-chat": "baichuan-inc/Baichuan2-7B-Chat",
+        "baichuan2-13b-chat": "baichuan-inc/Baichuan2-13B-Chat",
 
         "internlm-7b": "internlm/internlm-7b",
         "internlm-chat-7b": "internlm/internlm-chat-7b",
