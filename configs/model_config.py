@@ -30,7 +30,7 @@ LLM_MODELS = ["openai-api"]
 Agent_MODEL = None
 
 # LLM 模型运行设备。设为"auto"会自动检测(会有警告)，也可手动设定为 "cuda","mps","cpu","xpu" 其中之一。
-LLM_DEVICE = "cuda"
+LLM_DEVICE = "auto"
 
 HISTORY_LEN = 3
 
@@ -42,8 +42,8 @@ ONLINE_LLM_MODEL = {
     "openai-api": {
         "model_name": "gpt-4",
         "api_base_url": "https://api.openai.com/v1",
-        "api_key": "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",
-        "openai_proxy": "http://4.227.245.157:8080/",
+        "api_key": "",
+        "openai_proxy": "",
     },
 
     # 智谱AI API,具体注册及api key获取请前往 http://open.bigmodel.cn
