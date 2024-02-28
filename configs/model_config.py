@@ -159,7 +159,7 @@ MODEL_PATH = {
         "piccolo-base-zh": "sensenova/piccolo-base-zh",
         "piccolo-large-zh": "sensenova/piccolo-large-zh",
         "nlp_gte_sentence-embedding_chinese-large": "damo/nlp_gte_sentence-embedding_chinese-large",
-        "text-embedding-ada-002": "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",
+        "text-embedding-ada-002": "",
     },
 
     "llm_model": {
