@@ -70,3 +70,9 @@ def filter_message(session, conversation_id: str, limit: int = 10):
     for m in messages:
         data.append({"query": m.query, "response": m.response})
     return data
+
+
+if __name__ == '__main__':
+    print(
+        filter_message(conversation_id="5df01a532aec4554a6abf3bb40760b3b")
+    )

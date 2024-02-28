@@ -1,4 +1,7 @@
 import streamlit as st
+from langchain_core.messages import BaseMessage, HumanMessage, AIMessage
+
+from server.db.repository import get_all_conversation, add_conversation_to_db, filter_message
 from webui_pages.utils import *
 from streamlit_chatbox import *
 from streamlit_modal import Modal
@@ -98,14 +101,26 @@ def parse_command(text: str, modal: Modal) -> bool:
 
 
 def dialogue_page(api: ApiRequest, is_lite: bool = False):
-    st.session_state.setdefault("conversation_ids", {})
-    st.session_state["conversation_ids"].setdefault(chat_box.cur_chat_name, uuid.uuid4().hex)
-    st.session_state.setdefault("file_chat_id", None)
+    # st.session_state.setdefault("conversation_ids", {})
+    # st.session_state["conversation_ids"].setdefault(chat_box.cur_chat_name, uuid.uuid4().hex)
+    # st.session_state.setdefault("file_chat_id", None)
+    # default_model = api.get_default_llm_model()[0]
+
+    # 从数据库中加载会话列表
+    conversation_list = get_all_conversation()
+    if not conversation_list:
+        new_conversation = add_conversation_to_db(chat_type="LLM 对话", name="default")
+        st.session_state.setdefault("conversation_ids", {new_conversation.name: new_conversation.id})
+        st.session_state["conversation_ids"].setdefault(new_conversation.name, new_conversation.id)
+        st.session_state.setdefault("file_chat_id", None)
+    else:
+        st.session_state.setdefault("conversation_ids", {conv.name: conv.id for conv in conversation_list})
+        st.session_state.setdefault("file_chat_id", None)
     default_model = api.get_default_llm_model()[0]
 
     if not chat_box.chat_inited:
         st.toast(
-            f"欢迎使用 [`Mindturi`](https://github.com/chatchat-space/Langchain-Chatchat) ! \n\n"
+            f"欢迎使用 [`Mindturi`](junzerg@foxmail.com) ! \n\n"
             f"当前运行的模型`{default_model}`, 您可以开始提问了."
         )
         chat_box.init_session()
@@ -126,6 +141,12 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
         conversation_name = st.selectbox("当前会话：", conv_names, index=index)
         chat_box.use_chat_name(conversation_name)
         conversation_id = st.session_state["conversation_ids"][conversation_name]
+        message_list = filter_message(conversation_id=conversation_id)
+        # 返回的记录按时间倒序，转为正序
+        messages = list(reversed(message_list))
+        for message in messages:
+            chat_box.user_say(message["query"])
+            chat_box.ai_say(message["response"])
 
         def on_mode_change():
             mode = st.session_state.dialogue_mode

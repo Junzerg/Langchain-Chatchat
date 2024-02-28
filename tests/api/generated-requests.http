@@ -1,0 +1,24 @@
+###
+POST http://{{host}}:{{port}}/chat/chat
+Content-Type: application/json
+
+{
+  "query": "恼羞成怒",
+  "conversation_id": "",
+  "history_len": 3,
+  "history": [
+    {
+      "role": "user",
+      "content": "我们来玩成语接龙，我先来，生龙活虎"
+    },
+    {
+      "role": "assistant",
+      "content": "虎头虎脑"
+    }
+  ],
+  "stream": false,
+  "model_name": "chatglm3-6b",
+  "temperature": 0.7,
+  "max_tokens": 0,
+  "prompt_name": "default"
+}

@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime, JSON, func
+from sqlalchemy import Column, String, DateTime, func
+
 from server.db.base import Base
 
 
@@ -14,4 +15,4 @@ class ConversationModel(Base):
     create_time = Column(DateTime, default=func.now(), comment='创建时间')
 
     def __repr__(self):
-        return f"<Conversation(id='{self.id}', name='{self.name}', chat_type='{self.chat_type}', create_time='{self.create_time}')>"
+        return f"<conversation(id='{self.id}', name='{self.name}', chat_type='{self.chat_type}', create_time='{self.create_time}')>"
