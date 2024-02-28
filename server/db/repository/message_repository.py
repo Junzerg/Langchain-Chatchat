@@ -1,3 +1,4 @@
+from server.db.models.conversation_model import ConversationModel
 from server.db.session import with_session
 from typing import Dict, List
 import uuid
@@ -70,6 +71,17 @@ def filter_message(session, conversation_id: str, limit: int = 10):
     for m in messages:
         data.append({"query": m.query, "response": m.response})
     return data
+
+
+@with_session
+def del_message_by_conversation_name(session, conversation_name: str):
+    """
+    删除指定会话的所有聊天记录
+    """
+    conversation = session.query(ConversationModel).filter_by(name=conversation_name).first()
+    if conversation:
+        session.query(MessageModel).filter_by(conversation_id=conversation.id).delete()
+        session.commit()
 
 
 if __name__ == '__main__':

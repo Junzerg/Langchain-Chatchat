@@ -1,7 +1,8 @@
 import streamlit as st
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage
 
-from server.db.repository import get_all_conversation, add_conversation_to_db, filter_message
+from server.db.repository import get_all_conversation, add_conversation_to_db, filter_message, del_conversation_by_name, \
+    del_message_by_conversation_name
 from webui_pages.utils import *
 from streamlit_chatbox import *
 from streamlit_modal import Modal
@@ -80,8 +81,11 @@ def parse_command(text: str, modal: Modal) -> bool:
                 st.error(f"该会话名称 “{name}” 已存在")
                 time.sleep(1)
             else:
-                st.session_state["conversation_ids"][name] = uuid.uuid4().hex
-                st.session_state["cur_conv_name"] = name
+                #  新建一个回话
+                new_conversation = add_conversation_to_db(chat_type="", name=name)
+                st.session_state["conversation_ids"][name] = new_conversation.id
+                st.session_state["cur_conv_name"] = new_conversation.name
+
         elif cmd == "del":
             name = name or st.session_state.get("cur_conv_name")
             if len(conv_names) == 1:
@@ -93,9 +97,17 @@ def parse_command(text: str, modal: Modal) -> bool:
             else:
                 st.session_state["conversation_ids"].pop(name, None)
                 chat_box.del_chat_name(name)
+                del_message_by_conversation_name(name)
+                del_conversation_by_name(name)
                 st.session_state["cur_conv_name"] = ""
         elif cmd == "clear":
-            chat_box.reset_history(name=name or None)
+            if not name or name not in st.session_state["conversation_ids"]:
+                st.error(f"无效的会话名称：“{name}”")
+                time.sleep(1)
+            else:
+                chat_box.reset_history(name=name or None)
+                del_message_by_conversation_name(name)
+        print(st.session_state["conversation_ids"])
         return True
     return False
 
@@ -139,14 +151,18 @@ def dialogue_page(api: ApiRequest, is_lite: bool = False):
         if st.session_state.get("cur_conv_name") in conv_names:
             index = conv_names.index(st.session_state.get("cur_conv_name"))
         conversation_name = st.selectbox("当前会话：", conv_names, index=index)
-        chat_box.use_chat_name(conversation_name)
+        st.session_state["cur_conv_name"] = conversation_name
         conversation_id = st.session_state["conversation_ids"][conversation_name]
+        chat_box.use_chat_name(conversation_name)
         message_list = filter_message(conversation_id=conversation_id)
-        # 返回的记录按时间倒序，转为正序
-        messages = list(reversed(message_list))
-        for message in messages:
-            chat_box.user_say(message["query"])
-            chat_box.ai_say(message["response"])
+        if not chat_box.history and len(message_list) > 0:
+            # 返回的记录按时间倒序，转为正序
+            messages = list(reversed(message_list))
+            for message in messages:
+                chat_box.user_say(message["query"])
+                chat_box.ai_say(message["response"])
+            print(f"Loaded {len(messages)} messages from database")
+            st.rerun()
 
         def on_mode_change():
             mode = st.session_state.dialogue_mode
